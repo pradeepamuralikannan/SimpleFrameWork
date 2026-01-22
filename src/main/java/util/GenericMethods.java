@@ -1,12 +1,14 @@
 package util;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.time.Duration;    //pending - robo
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -38,9 +40,22 @@ public class GenericMethods {
     public 	static JavascriptExecutor js;
 	static List<WebElement> tableRows;
 	
+	public static String propertyFilePath = ".\\PropertyFile.properties";
+	Properties prop = new Properties();
+	
 	public static void main(String[] args) {
 
 	}
+	
+	public String readAPropertyFile(String propName) throws Exception {
+
+		FileReader reader = new FileReader(propertyFilePath);
+		prop.load(reader);
+
+		String prop_value = prop.getProperty(propName);
+		return prop_value;
+}
+
 
 	public WebDriver browsers(String browser) {
 
@@ -347,8 +362,8 @@ public class GenericMethods {
 			// or//
 
 			TakesScreenshot ts = (TakesScreenshot) driver;
-			File imgFile = new File(filePath
-					+ DateTimeFormatter.ofPattern("DDMMYYYY-HHMMSS").format(LocalDateTime.now()) + ".jpeg");
+			File imgFile = new File(filePath+"/"
+					+ DateTimeFormatter.ofPattern("ddMMyyyy-HHmmss").format(LocalDateTime.now()) + ".jpeg");
 			FileHandler.copy(ts.getScreenshotAs(OutputType.FILE), imgFile);
 
 		}
@@ -458,6 +473,6 @@ public class GenericMethods {
 		public void switchToParentFrame() {
 			driver.switchTo().parentFrame();
 		}
-
+		
 
 }
