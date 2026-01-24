@@ -11,36 +11,32 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import util.GenericMethods;
 
 public class OrangeHRM_LoginPage {
+	
+	GenericMethods gm;
 
-	public static WebDriver driver;
-
-	public static void main(String[] args) throws Exception {
-
-		GenericMethods gm = new GenericMethods();
-		driver = gm.browsers("Edge");
-		gm.launchURL("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
-		gm.maximizeWindow();
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("username")));
-		gm.takeScreenshot("./Screenshots");
-
-		OrangeHRM_LoginPage obj = new OrangeHRM_LoginPage();
-		obj.login();
-		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//h6[text()='Dashboard']")));
-		gm.takeScreenshot("./Screenshots");
-	}
+	 public OrangeHRM_LoginPage(WebDriver driver) {
+		    gm = new GenericMethods(driver);
+	    }
 
 	public void login() throws Exception {
-		WebElement header = driver.findElement(By.tagName("h5"));
-		WebElement userName = driver.findElement(By.name("username"));
-		WebElement passWord = driver.findElement(By.name("password"));
-		WebElement loginButton = driver.findElement(By.xpath("//button[@type='submit']"));
 
-		GenericMethods gm = new GenericMethods();
+		WebElement userName = gm.getElement(By.name("username"));
+		WebElement passWord = gm.getElement(By.name("password"));
+		WebElement loginButton = gm.getElement(By.xpath("//button[@type='submit']"));
 
 		userName.sendKeys(gm.readAPropertyFile("username"));
 		passWord.sendKeys(gm.readAPropertyFile("password"));
 		loginButton.click();
+
+		WebDriverWait wait = new WebDriverWait(gm.driver, Duration.ofSeconds(10));
+		WebElement dashboardHeader =
+		        wait.until(ExpectedConditions.visibilityOfElementLocated(
+		                By.xpath("//h6[text()='Dashboard']")
+		        ));
+		if(dashboardHeader.getText().equals("Dashboard"))
+			System.out.println("Login Successfull");
+		else
+			System.out.println("Login Failed");
 	}
 
 }
