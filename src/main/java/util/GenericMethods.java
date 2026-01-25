@@ -131,6 +131,27 @@ public class GenericMethods {
 	public String getText(By locator) {
 		return getElement(locator).getText();
 	}
+	
+	public String getText(String locator, String value) {
+		
+		String text = null;
+		switch(locator) {
+		case "xpath":
+			text = driver.findElement(By.xpath(value)).getText();
+			break;
+		
+		case "id":
+			text = driver.findElement(By.id(value)).getText();
+			break;
+		
+		}
+		return text;
+	}
+	
+	public String getText(WebElement ele) {
+		return ele.getText();
+	}
+	
 
 	public boolean isDisplayed(By locator) {
 		return getElement(locator).isDisplayed();

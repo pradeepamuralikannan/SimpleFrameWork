@@ -26,6 +26,47 @@ public class OrangeHRMAdminPage {
 		gm.waitForVisibility(By.xpath("//h6[text()='Admin']"));
 	}
 
+	public void goToAPageInAdminPage(String mainManu, String subMenu) throws InterruptedException {
+		List<WebElement> TopdropDownMenus = null;
+
+		if (mainManu.equalsIgnoreCase("Natioanalities") || mainManu.equalsIgnoreCase("Corporate Branding"))
+			TopdropDownMenus = gm.getListOfElement(By.xpath("//nav[@aria-label='Topbar Menu']/ul/li/a"));
+		else
+			TopdropDownMenus = gm.getListOfElement(By.xpath("//nav[@aria-label='Topbar Menu']/ul/li/span"));
+
+		for (WebElement each : TopdropDownMenus) {
+
+			switch (each.getText()) {
+			case "Job":
+				each.click();
+				Thread.sleep(2000);
+				goToSubMenu(subMenu);
+				break;
+
+			case "Nationalities":
+				each.click();
+				break;
+			}
+		}
+
+	}
+
+	public void goToSubMenu(String subMenu) {
+		List<WebElement> allSubMenus = gm.getListOfElement(By.xpath("//ul[@class='oxd-dropdown-menu']//a"));
+		for (WebElement each : allSubMenus) {
+			switch (each.getText()) {
+			case "Job Titles":
+				each.click();
+				break;
+
+			case "Pay Grade":
+				each.click();
+				break;
+			}
+		}
+
+	}
+
 	public void clickMenuInAdminPage(String menuName) {
 
 		List<WebElement> TopdropDownMenus = gm
@@ -109,13 +150,15 @@ public class OrangeHRMAdminPage {
 // Select User Role
 		gm.click(By.xpath(
 				"//label[text()='User Role']/parent::div/following-sibling::div//div[contains(@class,'oxd-select-text')]"));
+		
+		//label[text() = 'User Role']//following::div[@role="option"]
 		gm.waitForVisibility(By.xpath("//div[@role='listbox']"));
 		gm.click(By.xpath("//div[@role='listbox']//div[normalize-space()='" + role + "']"));
 
 // Enter Employee Name
 		gm.sendText(By.xpath("//input[@placeholder='Type for hints...']"), employeeName);
 		gm.waitForVisibility(By.xpath("//div[@role='listbox']"));
-		gm.click(By.xpath("//div[@role='listbox']//div[1]")); 
+		gm.click(By.xpath("//div[@role='listbox']//div[1]"));
 
 // Select Status
 		gm.click(By.xpath(

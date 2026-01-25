@@ -24,4 +24,9 @@ public class OrangeHRM_CommonPage {
 		}
 
 	}
+	
+	public void getPageTitle() {
+		GenericMethods gm = new GenericMethods(driver);
+		System.out.println(gm.getText(By.tagName("h6")));
+	}
 }

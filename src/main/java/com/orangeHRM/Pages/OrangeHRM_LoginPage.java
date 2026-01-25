@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import util.GenericMethods;
 
@@ -33,10 +34,12 @@ public class OrangeHRM_LoginPage {
 		        wait.until(ExpectedConditions.visibilityOfElementLocated(
 		                By.xpath("//h6[text()='Dashboard']")
 		        ));
-		if(dashboardHeader.getText().equals("Dashboard"))
-			System.out.println("Login Successfull");
-		else
-			System.out.println("Login Failed");
+//		if(dashboardHeader.getText().equals("Dashboard"))
+//			System.out.println("Login Successfull");
+//		else
+//			System.out.println("Login Failed");
+		
+		Assert.assertEquals(dashboardHeader.getText().equals("Dashboard"), "Dashboard");
 	}
 
 }
