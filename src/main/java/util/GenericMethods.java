@@ -115,7 +115,7 @@ public class GenericMethods {
 		return driver.findElement(locator);
 	}
 
-	public List<WebElement> getListOfElement(By locator) {
+	public List<WebElement> getListOfElements(By locator) {
 		return driver.findElements(locator);
 	}
 

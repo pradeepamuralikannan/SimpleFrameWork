@@ -11,11 +11,18 @@ import util.GenericMethods;
 public class OrangeHRM_CommonPage {
 
 	public WebDriver driver;
+	GenericMethods gm;
+	
+	public OrangeHRM_CommonPage(WebDriver driver) {
+		this.driver = driver;
+		this.gm = new GenericMethods(driver);
+	}
+	
 	public void goToAnyPage(String pageName) {
 
-		GenericMethods gm = new GenericMethods(driver);
+		 gm = new GenericMethods(driver);
 
-		List<WebElement> pageList = gm.getListOfElement(By.xpath("//ul[@class='oxd-main-menu']//span"));
+		List<WebElement> pageList = gm.getListOfElements(By.xpath("//ul[@class='oxd-main-menu']//span"));
 
 		for (WebElement eachPage : pageList) {
 			if (eachPage.getText().equalsIgnoreCase(pageName))
@@ -26,7 +33,7 @@ public class OrangeHRM_CommonPage {
 	}
 	
 	public void getPageTitle() {
-		GenericMethods gm = new GenericMethods(driver);
+		 gm = new GenericMethods(driver);
 		System.out.println(gm.getText(By.tagName("h6")));
 	}
 }
