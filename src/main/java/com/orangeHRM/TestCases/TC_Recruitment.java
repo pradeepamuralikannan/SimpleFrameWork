@@ -21,7 +21,7 @@ public class TC_Recruitment extends GenericMethods {
 		launchURL("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
 		OrangeHRM_LoginPage loginPage = new OrangeHRM_LoginPage(driver);
 		loginPage.login();
-		OrangeHRM_CommonPage commonPage = new OrangeHRM_CommonPage();
+		OrangeHRM_CommonPage commonPage = new OrangeHRM_CommonPage(driver);
 		commonPage.goToAnyPage("Recruitment");
 	}
 }

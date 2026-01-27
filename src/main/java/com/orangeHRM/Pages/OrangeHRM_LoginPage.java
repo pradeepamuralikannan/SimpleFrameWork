@@ -11,25 +11,23 @@ import org.testng.Assert;
 
 import util.GenericMethods;
 
-public class OrangeHRM_LoginPage {
+public class OrangeHRM_LoginPage extends GenericMethods {
 	
-	GenericMethods gm;
-
 	 public OrangeHRM_LoginPage(WebDriver driver) {
-		    gm = new GenericMethods(driver);
+		    super(driver);
 	    }
 
 	public void login() throws Exception {
 
-		WebElement userName = gm.getElement(By.name("username"));
-		WebElement passWord = gm.getElement(By.name("password"));
-		WebElement loginButton = gm.getElement(By.xpath("//button[@type='submit']"));
+		WebElement userName = getElement(By.name("username"));
+		WebElement passWord = getElement(By.name("password"));
+		WebElement loginButton = getElement(By.xpath("//button[@type='submit']"));
 
-		userName.sendKeys(gm.readAPropertyFile("username"));
-		passWord.sendKeys(gm.readAPropertyFile("password"));
+		userName.sendKeys(readAPropertyFile("username"));
+		passWord.sendKeys(readAPropertyFile("password"));
 		loginButton.click();
 
-		WebDriverWait wait = new WebDriverWait(gm.driver, Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		WebElement dashboardHeader =
 		        wait.until(ExpectedConditions.visibilityOfElementLocated(
 		                By.xpath("//h6[text()='Dashboard']")

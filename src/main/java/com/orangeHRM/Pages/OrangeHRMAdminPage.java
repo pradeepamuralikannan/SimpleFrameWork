@@ -11,23 +11,19 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import util.GenericMethods;
 
-public class OrangeHRMAdminPage {
-
-	public WebDriver driver;
-	GenericMethods gm;
+public class OrangeHRMAdminPage extends GenericMethods {
 
 	public OrangeHRMAdminPage(WebDriver driver) {
-		this.driver = driver;
-		this.gm = new GenericMethods(driver);
+		super(driver);
 	}
 
 	public void goToAPageInAdminPage(String mainManu, String subMenu) throws InterruptedException {
 		List<WebElement> TopdropDownMenus = null;
 
 		if (mainManu.equalsIgnoreCase("Natioanalities") || mainManu.equalsIgnoreCase("Corporate Branding"))
-			TopdropDownMenus = gm.getListOfElements(By.xpath("//nav[@aria-label='Topbar Menu']/ul/li/a"));
+			TopdropDownMenus = getListOfElements(By.xpath("//nav[@aria-label='Topbar Menu']//a"));
 		else
-			TopdropDownMenus = gm.getListOfElements(By.xpath("//nav[@aria-label='Topbar Menu']/ul/li/span"));
+			TopdropDownMenus = getListOfElements(By.xpath("//nav[@aria-label='Topbar Menu']//span"));
 
 		for (WebElement each : TopdropDownMenus) {
 
@@ -47,7 +43,7 @@ public class OrangeHRMAdminPage {
 	}
 
 	public void goToSubMenu(String subMenu) {
-		List<WebElement> allSubMenus = gm.getListOfElements(By.xpath("//ul[@class='oxd-dropdown-menu']//a"));
+		List<WebElement> allSubMenus = getListOfElements(By.xpath("//ul[@class='oxd-dropdown-menu']//a"));
 		for (WebElement each : allSubMenus) {
 			switch (each.getText()) {
 			case "Job Titles":
@@ -64,15 +60,15 @@ public class OrangeHRMAdminPage {
 
 	public void clickMenuInAdminPage(String menuName) {
 
-		List<WebElement> TopdropDownMenus = gm
-				.getListOfElements(By.xpath("//nav[@class='oxd-topbar-body-nav']//li//span"));
+		List<WebElement> TopdropDownMenus = getListOfElements(
+				By.xpath("//nav[@class='oxd-topbar-body-nav']//li//span"));
 
 		for (WebElement eachMenu : TopdropDownMenus) {
 			if (eachMenu.getText().equalsIgnoreCase(menuName))
 				eachMenu.click();
 		}
 
-		List<WebElement> TopNormalMenus = gm.getListOfElements(By.xpath("//nav[@class='oxd-topbar-body-nav']//li//a"));
+		List<WebElement> TopNormalMenus = getListOfElements(By.xpath("//nav[@class='oxd-topbar-body-nav']//li//a"));
 
 		for (WebElement eachMenu : TopNormalMenus) {
 			if (eachMenu.getText().equalsIgnoreCase(menuName))
@@ -82,62 +78,58 @@ public class OrangeHRMAdminPage {
 
 	}
 
-	public void addUser(String role, String username, String employeeName, String password, String status) {
-
-		gm.click(By.xpath("//button[normalize-space()='Add']")); // Click Add button
-		gm.waitForVisibility(By.xpath("//h6[text()='Add User']")); // Wait for Add User form
-		gm.click(By.xpath(
-				"//label[text()='User Role']/parent::div/following-sibling::div/div[@class='oxd-select-wrapper']")); // Select
-																														// User
-																														// Role
-
-		// label[text() = 'User Role']//following::div[@role="option"]
-		gm.waitForVisibility(By.xpath("//div[@role='listbox']"));
-		gm.click(By.xpath(".//div[normalize-space()='" + role + "']"));
-
-		gm.sendText(By.xpath("//input[@placeholder='Type for hints...']"), employeeName); // Enter Employee Name
-		gm.waitForVisibility(By.xpath("//div[@role='listbox']"));
-		gm.click(By.xpath("//div[@role='listbox']//div[1]"));
-
-		gm.click(By
-				.xpath("//label[text()='Status']/parent::div/following-sibling::div/div[@class='oxd-select-wrapper']")); // Select
-																															// Status
-		gm.waitForVisibility(By.xpath("//div[@role='listbox']"));
-		gm.click(By.xpath("//div[@role='listbox']//div[normalize-space()='" + status + "']"));
-
-		gm.sendText(By.xpath("//label[text()='Username']/parent::div/following-sibling::div//input"), username); // Enter
-																													// Username
-
-		gm.sendText(By.xpath("//label[text()='Password']/parent::div/following-sibling::div//input"), password); // Enter
-																													// Password
-
-		gm.sendText(By.xpath("//label[text()='Confirm Password']/parent::div/following-sibling::div//input"), password); // Confirm
-																															// Password
-
-		gm.click(By.xpath("//button[@type='submit']")); // Click Save
-	}
+//	public void addUser(String role, String username, String employeeName, String password, String status) {
+//
+//		click(By.xpath("//button[normalize-space()='Add']")); // Click Add button
+//		waitForVisibility(By.xpath("//h6[text()='Add User']")); // Wait for Add User form
+//		
+//		click(By.xpath("//label[text()='User Role']/parent::div/following-sibling::div/div[@class='oxd-select-wrapper']")); // Select user role
+//		// label[text() = 'User Role']//following::div[@role="option"]
+//		waitForVisibility(By.xpath("//div[@role='listbox']"));
+//		click(By.xpath(".//div[normalize-space()='" + role + "']"));
+//
+//		sendText(By.xpath("//input[@placeholder='Type for hints...']"), employeeName); // Enter Employee Name
+//		waitForVisibility(By.xpath("//div[@role='listbox']"));
+//		click(By.xpath("//div[@role='listbox']//div[1]"));
+//
+//		click(By.xpath("//label[text()='Status']/parent::div/following-sibling::div/div[@class='oxd-select-wrapper']")); // Select
+//																															// Status
+//		waitForVisibility(By.xpath("//div[@role='listbox']"));
+//		click(By.xpath("//div[@role='listbox']//div[normalize-space()='" + status + "']"));
+//
+//		sendText(By.xpath("//label[text()='Username']/parent::div/following-sibling::div//input"), username); // Enter
+//																												// Username
+//
+//		sendText(By.xpath("//label[text()='Password']/parent::div/following-sibling::div//input"), password); // Enter
+//																												// Password
+//
+//		sendText(By.xpath("//label[text()='Confirm Password']/parent::div/following-sibling::div//input"), password); // Confirm
+//																														// Password
+//
+//		click(By.xpath("//button[@type='submit']")); // Click Save
+//	}
 
 	public void searchByUserName(String userName) {
 
-		gm.sendText(By.xpath("//label[text()='Username']//following::input[@class='oxd-input oxd-input--active']"),
+		sendText(By.xpath("//label[text()='Username']//following::input[@class='oxd-input oxd-input--active']"),
 				userName);
-		gm.click(By.xpath("//button[@type='submit']"));
+		click(By.xpath("//button[@type='submit']"));
 	}
 
 	public void searchUserByNameandRole(String username, String role) {
 
-		gm.sendText(By.xpath("//label[text()='Username']//following::input[@class='oxd-input oxd-input--active']"),
+		sendText(By.xpath("//label[text()='Username']//following::input[@class='oxd-input oxd-input--active']"),
 				username);
-		gm.click(By.xpath("//label[text() = 'User Role']//following::div[@class='oxd-select-wrapper']"));
-		gm.waitForVisibility(By.xpath("//div[@role='listbox']"));
-		gm.click(By.xpath("//div[@role='listbox']//div[normalize-space()='" + role + "']"));
-		gm.click(By.xpath("//button[@type='submit']"));
+		click(By.xpath("//label[text() = 'User Role']//following::div[@class='oxd-select-wrapper']"));
+		waitForVisibility(By.xpath("//div[@role='listbox']"));
+		click(By.xpath("//div[@role='listbox']//div[normalize-space()='" + role + "']"));
+		click(By.xpath("//button[@type='submit']"));
 	}
 
 	public boolean verifySearchResult(String searchedUsername) {
 
-		List<WebElement> usernameCells = gm
-				.getListOfElements(By.xpath("//div[@class='oxd-table-body']//div[@role='cell'][2]//div"));
+		List<WebElement> usernameCells = getListOfElements(
+				By.xpath("//div[@class='oxd-table-body']//div[@role='cell'][2]//div"));
 
 		return usernameCells.size() == 1 && usernameCells.get(0).getText().equalsIgnoreCase(searchedUsername);
 	}
@@ -150,8 +142,8 @@ public class OrangeHRMAdminPage {
 
 	public void getEntireUsersList() {
 
-		List<WebElement> tableDataRows = gm
-				.getListOfElements(By.xpath("//div[@class='oxd-table-body']//div[contains(@class,'oxd-table-card')]"));
+		List<WebElement> tableDataRows = getListOfElements(
+				By.xpath("//div[@class='oxd-table-body']//div[contains(@class,'oxd-table-card')]"));
 
 		for (WebElement eachRow : tableDataRows) {
 			List<WebElement> tableDataCols = eachRow
@@ -163,8 +155,8 @@ public class OrangeHRMAdminPage {
 	}
 
 	public void deleteUserByName(String userName) {
-		List<WebElement> tableDataRows = gm
-				.getListOfElements(By.xpath("//div[@class='oxd-table-body']//div[contains(@class,'oxd-table-card')]"));
+		List<WebElement> tableDataRows = getListOfElements(
+				By.xpath("//div[@class='oxd-table-body']//div[contains(@class,'oxd-table-card')]"));
 
 		for (WebElement each : tableDataRows) {
 			List<WebElement> eachCell = each.findElements(By.xpath(".//div[contains(@class,'oxd-table-cell')]"));
@@ -175,7 +167,7 @@ public class OrangeHRMAdminPage {
 			String eachUserName = eachCell.get(1).getText();
 			if (userName.equalsIgnoreCase(eachUserName)) {
 				each.findElement(By.xpath(".//i[contains(@class,'bi-trash')]")).click();
-				gm.waitAndClick(By.xpath("//button[normalize-space()='Yes, Delete']"));
+				waitAndClick(By.xpath("//button[normalize-space()='Yes, Delete']"));
 				return; // break only exit the loop. but return exit both loop and method immediately
 			}
 		}
@@ -183,8 +175,8 @@ public class OrangeHRMAdminPage {
 	}
 
 	public void clickAndDelete(String userName) {
-		List<WebElement> tableDataRows = gm
-				.getListOfElements(By.xpath("//div[@class='oxd-table-body']//div[contains(@class,'oxd-table-card')]"));
+		List<WebElement> tableDataRows = getListOfElements(
+				By.xpath("//div[@class='oxd-table-body']//div[contains(@class,'oxd-table-card')]"));
 
 		for (WebElement each : tableDataRows) {
 			List<WebElement> eachCell = each.findElements(By.xpath(".//div[contains(@class,'oxd-table-cell')]"));
@@ -195,10 +187,39 @@ public class OrangeHRMAdminPage {
 			String eachUserName = eachCell.get(1).getText();
 			if (userName.equalsIgnoreCase(eachUserName)) {
 				each.findElement(By.xpath(".//i[@class='oxd-icon bi-check oxd-checkbox-input-icon']")).click();
-				gm.waitAndClick(By.xpath("//i[@class='oxd-icon bi-trash-fill oxd-button-icon']"));
+				waitAndClick(By.xpath("//i[@class='oxd-icon bi-trash-fill oxd-button-icon']"));
 				return;
 			}
 		}
 
+	}
+	
+	public void addUser(String role, String username, String employeeName, String password, String status) {
+
+		click(By.xpath("//button[normalize-space()='Add']")); // Click Add button
+		waitForVisibility(By.xpath("//h6[text()='Add User']")); // Wait for Add User form
+		
+		// Select user role    // label[text() = 'User Role']//following::div[@role="option"]
+		click(By.xpath("//label[text()='User Role']//ancestor::div[@class='oxd-grid-item oxd-grid-item--gutters']//following-sibling::div[@class='oxd-select-wrapper']"));
+		waitAndClick(By.xpath("//div[@role='listbox']//div[@role='option' and normalize-space()='" + role + "']"));
+
+		// Enter Employee Name
+		sendText(By.xpath("//input[@placeholder='Type for hints...']"), employeeName); 
+		waitAndClick(By.xpath("//div[@role='listbox']//div[1]"));
+
+        //select status
+		click(By.xpath("//label[text()='Status']//ancestor::div[@class='oxd-grid-item oxd-grid-item--gutters']//following-sibling::div[@class='oxd-select-wrapper']")); 
+		waitAndClick(By.xpath("//div[@role='listbox']//div[@role='option' and normalize-space()='" + status + "']"));
+
+		//Enter UserName
+		sendText(By.xpath("//label[text()='Username']//ancestor::div[@class='oxd-grid-item oxd-grid-item--gutters']//following-sibling::input[@class='oxd-input oxd-input--active']"), username); 
+        
+		//Enter Password
+		sendText(By.xpath("//label[text()='Password']//ancestor::div[@class='oxd-grid-item oxd-grid-item--gutters user-password-cell']//following-sibling::input[@type='password']"), password); 
+
+		//confirm Password
+		sendText(By.xpath("//label[text()='Confirm Password']//ancestor::div[@class='oxd-grid-item oxd-grid-item--gutters']//following-sibling::input[@type='password']"), password); 
+
+		click(By.xpath("//button[@type='submit']")); // Click Save
 	}
 }

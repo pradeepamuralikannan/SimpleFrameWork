@@ -8,9 +8,13 @@ import org.openqa.selenium.WebElement;
 
 import util.GenericMethods;
 
-public class OrangeHRM_TimePage {
-	public static WebDriver driver;
+public class OrangeHRM_TimePage extends GenericMethods {
 	
+	public OrangeHRM_TimePage(WebDriver driver) {
+		super(driver);
+		// TODO Auto-generated constructor stub
+	}
+
 	List<WebElement> topBarMenu = driver.findElements(By.xpath("//nav[@class='oxd-topbar-body-nav']//ul"));
 	
 	public void chooseMenuItem() {

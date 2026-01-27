@@ -111,7 +111,7 @@ public class OrangeHRM_RecruitmentPage extends GenericMethods {
 			break;
 			
 		case "Candidate Name":
-			textBox_CandidateName.sendKeys();
+			textBox_CandidateName.sendKeys(value);
 			break;
 		}
 		

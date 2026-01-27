@@ -10,17 +10,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import util.GenericMethods;
 
-public class OrangeHRM_DashboardPage {
-
-	public WebDriver driver;
-	GenericMethods gm;
-	public static WebDriverWait wait;
-
+public class OrangeHRM_DashboardPage extends GenericMethods {
 
 	public OrangeHRM_DashboardPage(WebDriver driver) {
-		this.driver = driver;
-		this.gm = new GenericMethods(driver);
-		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		super(driver);
 	}
 
 	public void clickProfileDropDown() {
@@ -75,26 +68,26 @@ public class OrangeHRM_DashboardPage {
 
 	public void assignLeave() {
 		
-		gm.waitForVisibility(By.xpath("//p[text()='Quick Launch']"));
-		gm.click((By.xpath("//button[@title='Assign Leave']")));
+		waitForVisibility(By.xpath("//p[text()='Quick Launch']"));
+		click((By.xpath("//button[@title='Assign Leave']")));
 		
-		gm.waitForVisibility(By.xpath("//a[text()='Assign Leave']"));
-		gm.sendText(By.xpath("//input[@placeholder='Type for hints...']"), "Radha");
-		gm.waitAndClick(By.xpath("(//div[@role='listbox']//span)[1]"));
+		waitForVisibility(By.xpath("//a[text()='Assign Leave']"));
+		sendText(By.xpath("//input[@placeholder='Type for hints...']"), "Radha");
+		waitAndClick(By.xpath("(//div[@role='listbox']//span)[1]"));
 
-		gm.click(By.xpath("//label[text()='Leave Type']/parent::div/following-sibling::div//div[@class='oxd-select-text oxd-select-text--active']"));
-		gm.waitForVisibility(By.xpath("//div[@role='listbox']"));
-		gm.click(By.xpath("//div[@role='listbox']//div[normalize-space()='CAN - Personal']"));
+		click(By.xpath("//label[text()='Leave Type']/parent::div/following-sibling::div//div[@class='oxd-select-text oxd-select-text--active']"));
+		waitForVisibility(By.xpath("//div[@role='listbox']"));
+		click(By.xpath("//div[@role='listbox']//div[normalize-space()='CAN - Personal']"));
 		
-		gm.js_sendTextToAnElement(gm.getElement(By.xpath("//label[text()='From Date']/parent::div/following-sibling::div//input[@placeholder='yyyy-dd-mm']")),"2026-26-01");
+		js_sendTextToAnElement(getElement(By.xpath("//label[text()='From Date']/parent::div/following-sibling::div//input[@placeholder='yyyy-dd-mm']")),"2026-26-01");
 
-//		gm.sendText(By.xpath("//label[text()='From Date']/parent::div/following-sibling::div//input[@placeholder='yyyy-dd-mm']"), "2026-27-01");
+//		sendText(By.xpath("//label[text()='From Date']/parent::div/following-sibling::div//input[@placeholder='yyyy-dd-mm']"), "2026-27-01");
 		
-//		gm.sendText(By.xpath("//label[text()='To Date']/parent::div/following-sibling::div//input[@placeholder='yyyy-dd-mm']"), "2026-30-01");
+//		sendText(By.xpath("//label[text()='To Date']/parent::div/following-sibling::div//input[@placeholder='yyyy-dd-mm']"), "2026-30-01");
 		
-		gm.js_sendTextToAnElement(gm.getElement(By.xpath("//label[text()='To Date']/parent::div/following-sibling::div//input[@placeholder='yyyy-dd-mm']")),"2026-30-01");
+		js_sendTextToAnElement(getElement(By.xpath("//label[text()='To Date']/parent::div/following-sibling::div//input[@placeholder='yyyy-dd-mm']")),"2026-30-01");
 		
-		gm.click(By.xpath("//button[@type='submit']"));
-		gm.waitAndClick(By.xpath("//div[@role='document']//div/button[normalize-space()='Ok']"));
+		click(By.xpath("//button[@type='submit']"));
+		waitAndClick(By.xpath("//div[@role='document']//div/button[normalize-space()='Ok']"));
 	}
 }
